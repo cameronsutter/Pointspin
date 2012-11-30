@@ -1,11 +1,13 @@
-.pointspin {
-	width: 122px;
-	height: 40px;
+.pointspin_wrapper{
+	height: 220px;
+	width: 375px;
+	background-image: url(points.png);
+	background-repeat: no-repeat;
+	float: left;
+}
 
-	border: 4px solid #9C9898;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	-moz-box-shadow: 5px 5px 5px black;
-	-webkit-box-shadow: 5px 5px 5px black;
-	box-shadow: 5px 5px 5px black;      
+.pointspin{
+	position: relative;
+	top: 129px;
+	left: 19px;
 }

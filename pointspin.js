@@ -20,9 +20,9 @@
 			// draw the lines between the numbers
 			context.beginPath();
 			context.moveTo(40,0);
-			context.lineTo(40,200);
+			//context.lineTo(40,200);
 			context.moveTo(80,0);
-			context.lineTo(80,200);          
+			//context.lineTo(80,200);          
 			context.stroke();
 			  
 			methods.drawNumbers(id, defaultNums);
@@ -31,14 +31,18 @@
 		
 		set : function(number){
 		
-			//get id
-			var id = this.attr("id");
-			
-			//add the number to this object's data
+			//check if number exceeds maximum
+			number = number > config.max ? config.max : number;
+
+			//get this object's data
 			var data = $(this).data('points');
+
+			//get id
+			var id = data.target;
+
+			//add the number to this object's data
 			data = $.extend(data, {value:number});
 			$(this).data('points', data);
-			
 			
 			//parse the int
 			var string = number.toString();
@@ -70,15 +74,11 @@
 		},
 		
 		/**
-		 *	###### Not functional ######
 		 *	Adds a number to the current value
 		 *	@author Cameron Sutter
 		 *	@date 11/13/12
 		 */
 		add : function(number){
-
-			//get id
-			var id = this.attr("id");
 			
 			//add the number to this object's data
 			var data = $(this).data('points');
@@ -89,8 +89,8 @@
 			//save this new number back to this object's data
 			data.value = new_number;
 			$(this).data('points', data);
-			
-						
+		
+			methods.set.call(this, new_number);
 		},
 		
 		/**
@@ -202,12 +202,12 @@
 
 //////////////////////////////////////////////////////////////////////////
 //																		//
-//	Main function that is called when you do $(#).points()				//
-//																		//
+//	Main function that is called when you do $(#).pointspin()			//
+//			(call it on a <canvas></canvas> element)					//
 //////////////////////////////////////////////////////////////////////////
 
 
-	$.fn.points = function( method, options ) {
+	$.fn.pointspin = function( method, options ) {
 	
 		//set a global function for use in the rest of the plugin
 		window.requestAnimFrame = (function(callback) {
@@ -243,7 +243,7 @@
 //////////////////////////////////////////////////////////////////////////
 
 	var config = {
-		
+		max: 999
 	};
 	
 	//define the different number columns
@@ -255,14 +255,14 @@
 		speed: 500
 	};
 	var defaultNums1 = {
-		x: 41,
+		x: 100,
 		y: 0,
 		height: 0,
 		borderWidth: 5,
 		speed: 800
 	};
 	var defaultNums2 = {
-		x: 82,
+		x: 200,
 		y: 0,
 		height: 0,
 		borderWidth: 5,
